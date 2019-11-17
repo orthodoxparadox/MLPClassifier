@@ -62,15 +62,12 @@ class NeuralNet:
         self.z.append(np.matmul(self.weights[self.layers - 2], self.a[-1]) + self.bias[self.layers - 2])
         fin = self.af(self.z[-1], True)
         self.a.append(copy.deepcopy(fin))
-        # print(self.a, "LOL")
 
     def lossfn(self, yhat, y):
-        # print(yhat, y)
         return -np.sum(y*np.log(yhat + eps))
 
     def backward(self, Y):
         self.delta = []
-        # print(Y.shape)
         for i in range(self.layers):
             self.delta.append(np.zeros(shape=(self.la[i], Y.shape[1])))
         self.delta[-1] = self.a[-1] - Y
